@@ -1,0 +1,12 @@
+{
+  "name": "Minerba Internal",
+  "short_name": "Minerba",
+  "description": "Portal internal Bidang Mineral dan Batubara.",
+  "start_url": "/#beranda",
+  "display": "standalone",
+  "background_color": "#071d36",
+  "theme_color": "#0b2940",
+  "icons": [
+    { "src": "/icon-minerba.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

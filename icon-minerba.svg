@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Minerba Internal</title><desc id="desc">Monogram mineral dan batubara</desc>
+  <defs>
+    <linearGradient id="base" x1="56" y1="34" x2="458" y2="480" gradientUnits="userSpaceOnUse"><stop stop-color="#08395A"/><stop offset="1" stop-color="#071D36"/></linearGradient>
+    <linearGradient id="peak" x1="160" y1="140" x2="380" y2="364" gradientUnits="userSpaceOnUse"><stop stop-color="#78E2DE"/><stop offset="1" stop-color="#1B82C4"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#031423" flood-opacity=".38"/></filter>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#base)"/>
+  <path d="M64 329c52-44 100-61 145-51 43 10 70 42 116 39 43-3 75-36 123-100v211H64z" fill="#0B5474" opacity=".58"/>
+  <path d="M57 390c64-47 120-55 169-25 40 25 82 27 124 9 33-14 70-44 111-89" fill="none" stroke="#4BBBC5" stroke-opacity=".45" stroke-width="9" stroke-linecap="round"/>
+  <path d="M67 432c65-42 127-49 180-19 57 32 126 13 194-49" fill="none" stroke="#46A9CF" stroke-opacity=".25" stroke-width="7" stroke-linecap="round"/>
+  <g filter="url(#shadow)">
+    <path d="M256 93 401 177v158L256 419 111 335V177z" fill="#092B4A" stroke="#84E5E2" stroke-width="11" stroke-linejoin="round"/>
+    <path d="m151 301 83-123 54 72 37-45 38 96z" fill="url(#peak)"/>
+    <path d="m151 301 83-123 22 123z" fill="#53C9D0"/>
+    <path d="m234 178 54 72-32 51z" fill="#A4F1E6"/>
+    <path d="m325 205 38 96h-107z" fill="#1885C1"/>
+    <path d="M150 334h212" stroke="#A2F4E5" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="256" cy="365" r="12" fill="#79E1DB"/>
+  </g>
+  <circle cx="399" cy="116" r="18" fill="#75DED8"/><circle cx="399" cy="116" r="7" fill="#E9FFFF"/>
+</svg>

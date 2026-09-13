@@ -296,3 +296,34 @@ $('#detail-close').onclick=function(){$('#detail-dialog').close()};$('#detail-ed
   $('#manager-form').onsubmit=async function(event){event.preventDefault();var form=new FormData(event.target),data=Object.fromEntries(form.entries()),save=$('#manager-save');if(managerTable!=='data_terpadu')return;save.disabled=true;save.textContent='Menyimpan…';$('#manager-error').textContent='';try{if(data.jenis==='agenda')await apiWrite('agendas','POST',null,{title:data.title,start_at:data.tanggal+'T'+data.waktu,end_at:'',location:data.lokasi,description:data.keterangan,visibility:'tim'});if(data.jenis==='perjalanan')await apiWrite('perjalanan_dinas','POST',null,{tujuan:data.title,tanggal_mulai:data.tanggal,tanggal_selesai:data.tanggal,kegiatan:data.keterangan,anggota:data.lokasi,status:'rencana'});if(data.jenis==='status')await apiWrite('status_tim','POST',null,{status:'rapat',tanggal:data.tanggal,keterangan:data.title+(data.keterangan?' — '+data.keterangan:'')});if(data.jenis==='informasi')await apiWrite('informasi','POST',null,{title:data.title,ringkasan:data.keterangan,user_id:currentSession().user.id});$('#manager-dialog').close();showToast('Data berhasil disimpan.');loadUnified();syncPortalData(currentSession().user)}catch(error){$('#manager-error').textContent=error.message}finally{save.disabled=false;save.textContent='Simpan'}};
   var avatar=$('.profile-avatar'),edit=$('#edit-profile-button');if(avatar&&edit&&!avatar.querySelector('#edit-profile-button')){edit.className='avatar-edit';edit.textContent='Edit';avatar.appendChild(edit)};
 })();
+
+/* Reliable profile editor shortcut: avoid routing through a moved hidden button. */
+(function(){
+  function openProfileEditor(){
+    var profile=window.currentProfile||{};
+    var full=$('#profile-full-name-input'),nickname=$('#profile-nickname-input'),unit=$('#profile-unit-input'),form=$('#profile-form');
+    if(!full||!nickname||!unit||!form)return;
+    full.value=profile.full_name||'';
+    nickname.value=profile.nickname||'';
+    unit.value=profile.unit||'Bidang Mineral dan Batubara';
+    var previous=$('#profile-photo-field');if(previous)previous.remove();
+    var field=document.createElement('label');
+    field.className='record-label upload-field profile-photo-field';
+    field.id='profile-photo-field';
+    field.innerHTML='Foto profil<input id="profile-photo-input" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG, atau WEBP. Maksimal 2 MB.</small><span id="profile-photo-name">'+escapeHtml(profile.avatar_url?'Foto profil tersimpan':'Belum ada foto dipilih')+'</span>';
+    form.insertBefore(field,form.querySelector('.dialog-actions'));
+    var photo=$('#profile-photo-input');
+    if(photo)photo.onchange=function(){var name=$('#profile-photo-name');if(name)name.textContent=this.files[0]?this.files[0].name:'Belum ada foto dipilih'};
+    var error=$('#profile-form-error');if(error)error.textContent='';
+    var dialog=$('#profile-dialog');if(dialog)dialog.showModal();
+  }
+  window.openProfileEditor=openProfileEditor;
+  var edit=$('#edit-profile-button');if(edit)edit.onclick=openProfileEditor;
+  var settings=$('.profile-settings');
+  if(settings)settings.addEventListener('click',function(event){
+    var button=event.target.closest('[data-profile-action="edit"]');
+    if(!button)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    openProfileEditor();
+  },true);
+})();
